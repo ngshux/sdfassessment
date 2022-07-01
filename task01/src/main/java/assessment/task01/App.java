@@ -1,8 +1,6 @@
 package assessment.task01;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Arrays;
 
 public class App 
 {
@@ -11,6 +9,7 @@ public class App
         String csvFilePath = args[0];
         String templateFilePath = args[1];
 
+        System.out.println("\n-----------------------------\nMerged file templates: \n\n");
         MailMerge.templateMerge(csvFilePath, templateFilePath);
     }
 }

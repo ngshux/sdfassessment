@@ -6,9 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+
 
 public class MailMerge {
 
@@ -28,22 +28,22 @@ public class MailMerge {
                 recipients.add(csvLineInArray);
             }
             //test
-            for (String[] recipient : recipients){
+            for (String[] recipient : recipients.subList(1,recipients.size())){
                 scanner = new Scanner(templateFile);
                 while(scanner.hasNextLine()){
                 String text = scanner.nextLine();
-                if(text.contains("__first_name__")){
-                    text = text.replace("__first_name__",recipient[0]);
-                }
                 if(text.contains("__address__")){
                     text = text.replace("__address__",recipient[2]);
+                }
+                if(text.contains("__first_name__")){
+                    text = text.replace("__first_name__",recipient[0]);
                 }
                 if(text.contains("__years__")){
                     text = text.replace("__years__",recipient[3]);
                 }
-                System.out.println(text);
+                System.out.println(text.replaceAll("\n", "\\\n"));
                 }
-            //System.out.println(Arrays.toString(recipient));
+                System.out.println("\n\n");
             }    
         } catch (FileNotFoundException e) {
             e.printStackTrace();
