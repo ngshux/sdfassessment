@@ -35,19 +35,10 @@ public class MailMerge {
                 while(scanner.hasNextLine()){
                 String text = scanner.nextLine();
                 for (int i = 0; i < variables.length; i++) {
-                    if(text.contains(variables[i])){
+                    if(text.contains(prefix+variables[i]+prefix)){
                         text=text.replace(prefix+variables[i]+prefix, vars[i]);
                     }
                 }
-                /*if(text.contains("__address__")){
-                    text = text.replace("__address__",vars[2]);
-                }
-                if(text.contains("__first_name__")){
-                    text = text.replace("__first_name__",vars[0]);
-                }
-                if(text.contains("__years__")){
-                    text = text.replace("__years__",vars[3]);
-                }*/
                 text = text.replaceAll("\\\\n","\n");  
                 System.out.println(text);
                 }
