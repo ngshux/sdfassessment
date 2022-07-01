@@ -22,26 +22,33 @@ public class MailMerge {
         try {
             //add csv into array
             BufferedReader br = new BufferedReader(new FileReader(csvFile));
+            //get first row
+            String[] variables = br.readLine().split(",");
             String line;
             while ((line = br.readLine()) != null) {
                 String[] csvLineInArray = line.split(",");
                 recipients.add(csvLineInArray);
             }
             //template
-            for (String[] recipient : recipients.subList(1,recipients.size())){
+            for (String[] vars : recipients){
                 scanner = new Scanner(templateFile);
                 while(scanner.hasNextLine()){
                 String text = scanner.nextLine();
-                if(text.contains("__address__")){
-                    text = text.replace("__address__",recipient[2].replaceAll("\\\\n","\\\n"));
+                for (int i = 0; i < variables.length; i++) {
+                    if(text.contains(variables[i])){
+                        text=text.replace(prefix+variables[i]+prefix, vars[i]);
+                    }
+                }
+                /*if(text.contains("__address__")){
+                    text = text.replace("__address__",vars[2]);
                 }
                 if(text.contains("__first_name__")){
-                    text = text.replace("__first_name__",recipient[0]);
+                    text = text.replace("__first_name__",vars[0]);
                 }
                 if(text.contains("__years__")){
-                    text = text.replace("__years__",recipient[3]);
-                }
-                //text = text.replaceAll("\n","\\\n");  
+                    text = text.replace("__years__",vars[3]);
+                }*/
+                text = text.replaceAll("\\\\n","\n");  
                 System.out.println(text);
                 }
                 System.out.println("\n\n");

@@ -24,6 +24,8 @@ public class App
     {
         try {
             Socket sock = new Socket("task02.chuklee.com",80);
+            sock.setSoTimeout(15000);
+
             OutputStream os = sock.getOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(os);
             
@@ -31,7 +33,6 @@ public class App
             ObjectInputStream ois = new ObjectInputStream(is);
             
             String[] requestFromServer = ois.readUTF().split(" ");
-            //float[] listofNums = Float.parseFloat(requestFromServer[1].split(","));
             requestId = requestFromServer[0];
             
             ArrayList<Float> number = new ArrayList<Float>();

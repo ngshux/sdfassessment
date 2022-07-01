@@ -1,0 +1,6 @@
+Dear __salutations__. __last_name__,
+
+Thank you for your interest in our new __package_name__ package! 
+For the 2022 Spring promotion, you can sign up for the low low price of $__price__!
+
+Safe travels!
