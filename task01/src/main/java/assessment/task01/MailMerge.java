@@ -17,6 +17,7 @@ public class MailMerge {
         File templateFile = new File(templatePath);
         List<String[]> recipients = new ArrayList<>();
         Scanner scanner;
+        String prefix = "__";
 
         try {
             //add csv into array
@@ -27,13 +28,12 @@ public class MailMerge {
                 recipients.add(csvLineInArray);
             }
             //template
-            //scanner method; cant get \n
             for (String[] recipient : recipients.subList(1,recipients.size())){
                 scanner = new Scanner(templateFile);
                 while(scanner.hasNextLine()){
                 String text = scanner.nextLine();
                 if(text.contains("__address__")){
-                    text = text.replace("__address__",recipient[2]);
+                    text = text.replace("__address__",recipient[2].replaceAll("\\\\n","\\\n"));
                 }
                 if(text.contains("__first_name__")){
                     text = text.replace("__first_name__",recipient[0]);
@@ -41,7 +41,7 @@ public class MailMerge {
                 if(text.contains("__years__")){
                     text = text.replace("__years__",recipient[3]);
                 }
-                text = text.replaceAll("\n",System.getProperty("line.separator"));  
+                //text = text.replaceAll("\n","\\\n");  
                 System.out.println(text);
                 }
                 System.out.println("\n\n");
