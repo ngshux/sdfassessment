@@ -17,7 +17,6 @@ public class MailMerge {
         File templateFile = new File(templatePath);
         List<String[]> recipients = new ArrayList<>();
         Scanner scanner;
-        String prefix = "";
 
         try {
             //add csv into array
@@ -27,7 +26,8 @@ public class MailMerge {
                 String[] csvLineInArray = line.split(",");
                 recipients.add(csvLineInArray);
             }
-            //test
+            //template
+            //scanner method; cant get \n
             for (String[] recipient : recipients.subList(1,recipients.size())){
                 scanner = new Scanner(templateFile);
                 while(scanner.hasNextLine()){
@@ -41,10 +41,12 @@ public class MailMerge {
                 if(text.contains("__years__")){
                     text = text.replace("__years__",recipient[3]);
                 }
-                System.out.println(text.replaceAll("\n", "\\\n"));
+                text = text.replaceAll("\n",System.getProperty("line.separator"));  
+                System.out.println(text);
                 }
                 System.out.println("\n\n");
-            }    
+            }   
+            
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
